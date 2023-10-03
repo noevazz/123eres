@@ -11,7 +11,14 @@
         text-align: center;
       }
       body {
-        background-color: black;
+        background-image: linear-gradient(
+          to right top,
+          #051937,
+          #004d7a,
+          #008793,
+          #00bf72,
+          #a8eb12
+        );
         display: flex;
         align-items: center;
         justify-content: center;
@@ -43,72 +50,86 @@
       li {
         text-align: left;
       }
+      #content {
+        background-color: rgba(255, 255, 255, 0.2);
+        -webkit-backdrop-filter: blur(5px);
+        backdrop-filter: blur(5px);
+        padding: 2rem;
+        border-radius: 10px;
+        max-width: 80%;
+        word-wrap: break-word;
+      }
+      h2 {
+        font-size: 3rem;
+      }
     </style>
   </head>
   <body>
-    <div>
-        <section id="setup">
-            <h1>123eres</h1>
-            <span
-                >by
-                <a href="https://www.linkedin.com/in/josenoevg/" target="_blank"
-                >noe</a
-                ></span
-            >
-            <hr />
-            <ul id="preguntas">
-
-            </ul>
-            <input type="text" placeholder="Agregar pregunta" id="preguntaInput">
-            <br>
-            <button onclick="agregarPregunta()">Agregar pregunta</button>
-            <hr>
-            <button onclick="jugar()">jugar</button>
-        </section>
-        <section id="juego" style="display: none;">
-            <h2 id="pregunta"></h2>
-            <button onclick="siguiente()">Siguiente</button>
-        </section>
+    <div id="content">
+      <section id="setup">
+        <h1>123eres</h1>
+        <span
+          >by
+          <a href="https://www.linkedin.com/in/josenoevg/" target="_blank"
+            >noe</a
+          ></span
+        >
+        <hr />
+        <ul id="preguntas"></ul>
+        <input type="text" placeholder="Agregar pregunta" id="preguntaInput" />
+        <br />
+        <button onclick="agregarPregunta()">Agregar pregunta</button>
+        <hr />
+        <button onclick="jugar()">jugar</button>
+      </section>
+      <section id="juego" style="display: none">
+        <h2 id="pregunta"></h2>
+        <button onclick="siguiente()">Siguiente</button>
+      </section>
     </div>
-      
+
     <script>
-        const preguntas = [
-            "risa mas odiosa",
-            "mejor cantante",
-            "mas castros@",
-            "mas puton/puton@",
-        ]
+      const preguntas = [
+        "risa mas odiosa",
+        "mejor cantante",
+        "mas castros@",
+        "mas puton-puton@",
+      ];
 
-        function llenarPreguntasElement (lista) {
-            const preguntasElement = document.getElementById("preguntas");
-            lista.forEach(pregunta=>{
-                const nodo = document.createElement("li");
-                nodo.innerHTML = pregunta;
-                preguntasElement.appendChild(nodo);
-            });
-        }
-        llenarPreguntasElement(preguntas);
+      function llenarPreguntasElement(lista) {
+        const preguntasElement = document.getElementById("preguntas");
+        lista.forEach((pregunta) => {
+          const nodo = document.createElement("li");
+          nodo.innerHTML = pregunta;
+          preguntasElement.appendChild(nodo);
+        });
+      }
+      llenarPreguntasElement(preguntas);
 
-        function agregarPregunta () {
-            const preguntaInput = document.getElementById("preguntaInput");
-            preguntas.push(preguntaInput.value);
-            llenarPreguntasElement([preguntaInput.value]);
-            preguntaInput.value = "";
+      function agregarPregunta() {
+        const preguntaInput = document.getElementById("preguntaInput");
+        if (preguntaInput.value === "") {
+          alert("primero escribe una pregunta");
+          return;
         }
-        function jugar () {
-            document.getElementById("setup").style.display = "none";
-            document.getElementById("juego").style.display = "block";
-            document.getElementById("pregunta").innerHTML = preguntas[0];
+        preguntas.push(preguntaInput.value);
+        llenarPreguntasElement([preguntaInput.value]);
+        preguntaInput.value = "";
+      }
+      function jugar() {
+        document.getElementById("setup").style.display = "none";
+        document.getElementById("juego").style.display = "block";
+        document.getElementById("pregunta").innerHTML = preguntas[0];
+      }
+      let counter = 1;
+      function siguiente() {
+        if (counter === preguntas.length) {
+          alert("Se terminaron las preguntas");
+        } else {
+          document.getElementById("pregunta").innerHTML = preguntas[counter];
+          counter++;
         }
-        let counter = 1;
-        function siguiente () {
-            if (counter === preguntas.length) {
-                alert("Se terminaron las preguntas");
-            } else {
-                document.getElementById("pregunta").innerHTML = preguntas[counter];
-                counter++;
-            }
-        }
+      }
     </script>
   </body>
 </html>
