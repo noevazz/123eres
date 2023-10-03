@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>123eres</title>
+    <style>
+      * {
+        color: white;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        text-align: center;
+      }
+      body {
+        background-color: black;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 100%;
+        height: 100vh;
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+      }
+      button {
+        background-color: #4caf50; /* Green */
+        border: none;
+        border-radius: 10px;
+        color: white;
+        padding: 10px 15px;
+        font-weight: bold;
+        margin: 1rem 1rem;
+      }
+      button:active {
+        transform: translateY(4px);
+      }
+      button:hover {
+        background-color: #3e8e41;
+      }
+      input {
+        color: black;
+      }
+      li {
+        text-align: left;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+        <section id="setup">
+            <h1>123eres</h1>
+            <span
+                >by
+                <a href="https://www.linkedin.com/in/josenoevg/" target="_blank"
+                >noe</a
+                ></span
+            >
+            <hr />
+            <ul id="preguntas">
+
+            </ul>
+            <input type="text" placeholder="Agregar pregunta" id="preguntaInput">
+            <br>
+            <button onclick="agregarPregunta()">Agregar pregunta</button>
+            <hr>
+            <button onclick="jugar()">jugar</button>
+        </section>
+        <section id="juego" style="display: none;">
+            <h2 id="pregunta"></h2>
+            <button onclick="siguiente()">Siguiente</button>
+        </section>
+    </div>
+      
+    <script>
+        const preguntas = [
+            "risa mas odiosa",
+            "mejor cantante",
+            "mas castros@",
+            "mas puton/puton@",
+        ]
+
+        function llenarPreguntasElement (lista) {
+            const preguntasElement = document.getElementById("preguntas");
+            lista.forEach(pregunta=>{
+                const nodo = document.createElement("li");
+                nodo.innerHTML = pregunta;
+                preguntasElement.appendChild(nodo);
+            });
+        }
+        llenarPreguntasElement(preguntas);
+
+        function agregarPregunta () {
+            const preguntaInput = document.getElementById("preguntaInput");
+            preguntas.push(preguntaInput.value);
+            llenarPreguntasElement([preguntaInput.value]);
+            preguntaInput.value = "";
+        }
+        function jugar () {
+            document.getElementById("setup").style.display = "none";
+            document.getElementById("juego").style.display = "block";
+            document.getElementById("pregunta").innerHTML = preguntas[0];
+        }
+        let counter = 1;
+        function siguiente () {
+            if (counter === preguntas.length) {
+                alert("Se terminaron las preguntas");
+            } else {
+                document.getElementById("pregunta").innerHTML = preguntas[counter];
+                counter++;
+            }
+        }
+    </script>
+  </body>
+</html>
